@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-namespace Ai_s
+namespace Ai_s.V_1
 {
     public class AIPatrol : MonoBehaviour
     {

@@ -30,17 +30,6 @@ namespace Ai_s
             _tankExploding.Explode(bulletPos);
         }
 
-        private void OnDrawGizmos()
-        {
-            if (visibleTargets == null) return;
-
-            foreach (var target in visibleTargets)
-            {
-                Gizmos.color = Color.red;
-                var position = _tankTop.transform.position;
-                var targetPosition = target.transform.position;
-                Gizmos.DrawLine(position, new Vector3(targetPosition.x, position.y, targetPosition.z));
-            }
-        }
+        
     }
 }

@@ -19,6 +19,9 @@ scopes = {
 	"last_search.384D8B0E" = ""
 	"OpenInspectorPreview.384D8B0E" = "0"
 	"currentGroup.384D8B0E" = "all"
+	"last_search.E8DA15E5" = ""
+	"OpenInspectorPreview.E8DA15E5" = "0"
+	"currentGroup.E8DA15E5" = "all"
 }
 providers = {
 	adb = {
@@ -70,6 +73,7 @@ searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = false
+hideTabs = false
 expandedQueries = [
 ]
 queryBuilder = false

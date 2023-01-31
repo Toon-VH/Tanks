@@ -546,17 +546,18 @@ MonoBehaviour:
   _turretRotatingObjects:
   - {fileID: 6944333972264134130}
   - {fileID: 8348448467855789957}
+  _turretRotatingDegree: 30
+  MinSecondsBetweenLookingPos: 2
+  MaxSecondsBetweenLookingPos: 5
+  agroRadius: 14
+  viewRadius: 35
+  viewAngle: 50
   targetMask:
     serializedVersion: 2
     m_Bits: 256
   obstacleMask:
     serializedVersion: 2
     m_Bits: 2048
-  tankBarrel: {fileID: 6944333972264134130}
-  viewRadius: 35
-  agroRadius: 14
-  _lookDirectionChangeTimer: 2.5
-  viewAngle: 67
 --- !u!114 &7458008516705922769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +573,8 @@ MonoBehaviour:
   bulletsShot: 0
   projectile: {fileID: 1971481743149664429, guid: 4cce4b6326329954cb8730799a7329d1,
     type: 3}
+  Accuracy: 0
+  MaxAngleMissedShot: 30
   _turretRotatingObjects:
   - {fileID: 8348448467855789957}
   - {fileID: 6944333972264134130}
@@ -618,8 +621,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.6070435, y: 2.1215851, z: 3.3400636}
-  m_Center: {x: -0.0033904314, y: 1.0698053, z: 0.07221651}
+  m_Size: {x: 2.6070435, y: 2.1081157, z: 3.2053695}
+  m_Center: {x: -0.0033904314, y: 1.0630705, z: 0.121604264}
 --- !u!54 &1739426237973275656
 Rigidbody:
   m_ObjectHideFlags: 0
