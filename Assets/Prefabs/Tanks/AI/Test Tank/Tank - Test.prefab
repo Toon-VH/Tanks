@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2716623876071605950}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.29026043, z: 3.242}
+  m_LocalPosition: {x: 0, y: -0.29026043, z: 3.165}
   m_LocalScale: {x: 0.21, y: 0.21, z: 0.21}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -575,6 +575,7 @@ MonoBehaviour:
     type: 3}
   Accuracy: 0
   MaxAngleMissedShot: 30
+  _barrel: {fileID: 4767724920091362551}
   _turretRotatingObjects:
   - {fileID: 8348448467855789957}
   - {fileID: 6944333972264134130}

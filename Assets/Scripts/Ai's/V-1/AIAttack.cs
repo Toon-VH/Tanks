@@ -8,12 +8,20 @@ namespace Ai_s.V_1
     public class AIAttack : MonoBehaviour
     {
         public int bulletsShot = 0;
-        public GameObject projectile;
 
+        // Attack
+        [SerializeField] private GameObject projectile;
+        [SerializeField] private Transform _bulletStartPos;
+
+        // Turret moving
+        [SerializeField] private List<GameObject> _turretRotatingObjects;
+
+        // Accuracy
         [Range(0, 100)] [SerializeField] private int Accuracy = 50;
         [SerializeField] private float MaxAngleMissedShot = 30;
-        [SerializeField] private List<GameObject> _turretRotatingObjects;
-        [SerializeField] private Transform _bulletStartPos;
+
+        //---
+        [SerializeField] private Transform _barrel;
         [SerializeField] private AudioClip _shotAudio;
 
         private AIController _aiController;
@@ -118,12 +126,11 @@ namespace Ai_s.V_1
 
         private IEnumerator CheckIfMayShoot()
         {
-            //TODO: if to close he shoots
             for (;;)
             {
                 RaycastHit hit;
                 // Does the ray intersect any objects excluding the player layer
-                if (Physics.SphereCast(_bulletStartPos.position, 1.2f, _bulletStartPos.forward, out hit,
+                if (Physics.SphereCast(_barrel.position, 0.8f, _bulletStartPos.forward, out hit,
                         Mathf.Infinity))
                 {
                     mayShoot = !hit.collider.gameObject.CompareTag("AITank");
@@ -136,7 +143,7 @@ namespace Ai_s.V_1
         private void OnDrawGizmos()
         {
             if (_aiController == null) return;
-            var position = _bulletStartPos.transform.position;
+            var position = _barrel.transform.position;
 
             foreach (var target in _aiController.visibleTargets)
             {
