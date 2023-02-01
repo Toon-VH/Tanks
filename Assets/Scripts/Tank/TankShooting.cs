@@ -13,10 +13,7 @@ namespace Tank
         [SerializeField] private GameObject _tankTop;
         [SerializeField] private GameObject _tankBarrel;
 
-        [SerializeField] private AudioClip _shotAudio;
-
         private TankController _tankController;
-        private AudioSource _engineAudioSource;
         private Vector3 _point;
         private float nextFire = 0.0F;
 
@@ -24,7 +21,6 @@ namespace Tank
         private void Start()
         {
             _tankController = gameObject.GetComponent<TankController>();
-            _engineAudioSource = gameObject.GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -55,7 +51,6 @@ namespace Tank
         {
             Debug.Log("Shoot!!");
             nextFire = Time.time + _tankController._data.FireRate;
-            _engineAudioSource.PlayOneShot(_shotAudio);
             var bullet = Instantiate(projectile, _bulletStartPos.transform.position,
                 _bulletStartPos.transform.rotation);
             bullet.name = "Bullet " + ++bulletsShot;

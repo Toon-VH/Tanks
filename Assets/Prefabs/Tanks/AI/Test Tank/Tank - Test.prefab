@@ -472,7 +472,6 @@ GameObject:
   - component: {fileID: 3521323167731602075}
   - component: {fileID: 1739426237973275657}
   - component: {fileID: 1739426237973275656}
-  - component: {fileID: 1739426237973275671}
   - component: {fileID: 1815527621}
   m_Layer: 9
   m_Name: Tank - Test
@@ -573,14 +572,13 @@ MonoBehaviour:
   bulletsShot: 0
   projectile: {fileID: 1971481743149664429, guid: 4cce4b6326329954cb8730799a7329d1,
     type: 3}
-  Accuracy: 0
-  MaxAngleMissedShot: 30
-  _barrel: {fileID: 4767724920091362551}
+  _bulletStartPos: {fileID: 3791630032495018021}
   _turretRotatingObjects:
   - {fileID: 8348448467855789957}
   - {fileID: 6944333972264134130}
-  _bulletStartPos: {fileID: 3791630032495018021}
-  _shotAudio: {fileID: 8300000, guid: 4d5cdf532aa1f36408f7784bd7f3e202, type: 3}
+  Accuracy: 0
+  MaxAngleMissedShot: 30
+  _barrel: {fileID: 4767724920091362551}
 --- !u!114 &3521323167731602075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +596,6 @@ MonoBehaviour:
     type: 3}
   explosionVFX: {fileID: 3293452790979164644, guid: 7af57b328909897489c174aed035086a,
     type: 3}
-  explodingAudio: {fileID: 8300000, guid: a31b9bf2c1188d74ca30195632f26c4e, type: 3}
   explosionMinForce: 295.5
   explosionMaxForce: 500
   explosionForceRadius: 10
@@ -651,102 +648,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &1739426237973275671
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8954766682274078228}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 447.3135
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!195 &1815527621
 NavMeshAgent:
   m_ObjectHideFlags: 0

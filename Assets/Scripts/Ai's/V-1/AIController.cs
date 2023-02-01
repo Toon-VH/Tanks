@@ -10,12 +10,10 @@ namespace Ai_s
         public AIState _state;
         private TankExploding _tankExploding;
         public List<Transform> visibleTargets = new();
-        private GameObject _tankTop;
 
 
         private void Start()
         {
-            _tankTop = transform.Find("Top").gameObject;
             _state = AIState.Patrol;
             _tankExploding = GetComponent<TankExploding>();
         }

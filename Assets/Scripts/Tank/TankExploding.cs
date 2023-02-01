@@ -8,7 +8,6 @@ namespace Tank
         [SerializeField] public GameObject originalObject;
         [SerializeField] public GameObject FracturedObject;
         [SerializeField] public GameObject explosionVFX;
-        [SerializeField] public AudioClip explodingAudio;
 
         public float explosionMinForce = 5;
         public float explosionMaxForce = 100;
@@ -32,7 +31,6 @@ namespace Tank
             Destroy(fractureObj, 20);
 
             if (explosionVFX == null) return;
-            AudioSource.PlayClipAtPoint(explodingAudio, transform.position);
             var exploVFX = Instantiate(explosionVFX, bulletImpact, Quaternion.identity);
             Destroy(exploVFX, 7);
             Destroy(gameObject, 7);

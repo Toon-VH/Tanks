@@ -3637,6 +3637,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1739426237973275671, guid: eda94a31bc25c2247b13e9c512813f32,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8578909200460235950, guid: eda94a31bc25c2247b13e9c512813f32,
         type: 3}
       propertyPath: m_RootOrder
@@ -6686,20 +6691,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6162797953592304516, guid: 30b31cdb03e46834288ac59d59c26125,
-        type: 3}
-      propertyPath: Mute
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6162797953592304516, guid: 30b31cdb03e46834288ac59d59c26125,
+    - target: {fileID: 4822588866066816042, guid: 30b31cdb03e46834288ac59d59c26125,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6162797953592304516, guid: 30b31cdb03e46834288ac59d59c26125,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8821760183887268909, guid: 30b31cdb03e46834288ac59d59c26125,
         type: 3}

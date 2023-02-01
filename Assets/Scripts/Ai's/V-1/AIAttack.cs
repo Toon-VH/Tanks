@@ -17,18 +17,17 @@ namespace Ai_s.V_1
         [SerializeField] private List<GameObject> _turretRotatingObjects;
 
         // Accuracy
-        [Range(0, 100)] [SerializeField] private int Accuracy = 50;
+        [Range(0, 100)] [SerializeField] private float Accuracy = 50;
         [SerializeField] private float MaxAngleMissedShot = 30;
 
         //---
         [SerializeField] private Transform _barrel;
-        [SerializeField] private AudioClip _shotAudio;
 
         private AIController _aiController;
         private AudioSource _engineAudioSource;
         private bool shooting;
         private bool mayShoot;
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
         private Coroutine _shootCoroutine;
         private Coroutine _checkIfMayShootCoroutine;
 
@@ -81,6 +80,7 @@ namespace Ai_s.V_1
 
                     // Determine which direction to rotate towards
                     var targetDirection = _aiController.visibleTargets[0].position - turretPart.transform.position;
+                    
 
                     // The step size is equal to speed times frame time.
                     var singleStep = _aiController.data.turretTurningSpeedInDegree * Time.deltaTime;
@@ -102,10 +102,9 @@ namespace Ai_s.V_1
             }
         }
 
-        private void AimDirection()
+        private float AngleMissed()
         {
-            var targetDirection =
-                _aiController.visibleTargets[0].position - _turretRotatingObjects[0].transform.position;
+            return MaxAngleMissedShot * (Accuracy / 100) * (UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1);
         }
 
 
@@ -114,7 +113,6 @@ namespace Ai_s.V_1
             for (;;)
             {
                 Debug.Log("AI Shoot!!");
-                _engineAudioSource.PlayOneShot(_shotAudio);
                 var bulletStartPos = _bulletStartPos.transform;
                 var bullet = Instantiate(projectile, bulletStartPos.position, bulletStartPos.rotation);
                 bullet.name = "Bullet " + ++bulletsShot;

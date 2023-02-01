@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d79057ebce2483cbbd62158dac2b7ea, type: 3}
   m_Name: TestTank
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 2.8
   turningSpeed: 4.6
-  turretTurningSpeedInDegree: 50
+  turretTurningSpeedInDegree: 60
   BulletSpeed: 25
   BulletWallBounces: 1
   FireRate: 1.2
