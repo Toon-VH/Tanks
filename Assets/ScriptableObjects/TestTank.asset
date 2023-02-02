@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.8
   turningSpeed: 4.6
-  turretTurningSpeedInDegree: 60
-  BulletSpeed: 25
-  BulletWallBounces: 1
-  FireRate: 1.2
+  turretTurningSpeedInDegree: 90
+  BulletSpeed: 35
+  BulletWallBounces: 0
+  FireRate: 0.2

@@ -80,7 +80,7 @@ namespace Ai_s.V_1
 
                     // Determine which direction to rotate towards
                     var targetDirection = _aiController.visibleTargets[0].position - turretPart.transform.position;
-                    
+
 
                     // The step size is equal to speed times frame time.
                     var singleStep = _aiController.data.turretTurningSpeedInDegree * Time.deltaTime;
@@ -112,7 +112,7 @@ namespace Ai_s.V_1
         {
             for (;;)
             {
-                Debug.Log("AI Shoot!!");
+                Debug.Log(gameObject.name + " Fired!!");
                 var bulletStartPos = _bulletStartPos.transform;
                 var bullet = Instantiate(projectile, bulletStartPos.position, bulletStartPos.rotation);
                 bullet.name = "Bullet " + ++bulletsShot;
