@@ -596,10 +596,10 @@ MonoBehaviour:
     type: 3}
   explosionVFX: {fileID: 3293452790979164644, guid: 7af57b328909897489c174aed035086a,
     type: 3}
-  explosionMinForce: 295.5
+  explosionMinForce: 100
   explosionMaxForce: 500
-  explosionForceRadius: 10
-  fragScaleFactor: 0.9
+  explosionForceRadius: 6
+  fragScaleFactor: 0.99
 --- !u!65 &1739426237973275657
 BoxCollider:
   m_ObjectHideFlags: 0
