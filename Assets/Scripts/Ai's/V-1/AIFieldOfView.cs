@@ -39,6 +39,7 @@ namespace Ai_s.V_1
             StartCoroutine(FindTargets(0.2f));
             setRandomLookingPos = StartCoroutine(SetRandomLookingAngle());
             lookingAround = true;
+            
         }
 
         private void Update()
@@ -109,7 +110,7 @@ namespace Ai_s.V_1
         {
             foreach (var turretPart in _turretRotatingObjects)
             {
-                // // The step size is equal to speed times frame time.
+                // The step size is equal to speed times frame time.
                 var step = _aiController.data.turretTurningSpeedInDegree * Time.deltaTime;
 
                 // Rotate our transform a step closer to the target's.

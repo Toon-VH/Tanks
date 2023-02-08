@@ -15,6 +15,6 @@ MonoBehaviour:
   speed: 3.5
   turningSpeed: 2
   turretTurningSpeedInDegree: 35
-  BulletSpeed: 35
+  BulletSpeed: 32
   BulletWallBounces: 0
   FireRate: 1.5

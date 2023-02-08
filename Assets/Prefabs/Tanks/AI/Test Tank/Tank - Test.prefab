@@ -576,8 +576,8 @@ MonoBehaviour:
   _turretRotatingObjects:
   - {fileID: 8348448467855789957}
   - {fileID: 6944333972264134130}
-  Accuracy: 0
-  MaxAngleMissedShot: 30
+  Accuracy: 50
+  MaxAngleMissedShot: 10
   _barrel: {fileID: 4767724920091362551}
 --- !u!114 &3521323167731602075
 MonoBehaviour:

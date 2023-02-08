@@ -24,44 +24,30 @@ namespace Ai_s.V_1
         [SerializeField] private Transform _barrel;
 
         private AIController _aiController;
-        private AudioSource _engineAudioSource;
-        private bool shooting;
+        private Quaternion shootRotation;
         private bool mayShoot;
         private readonly object _lock = new();
-        private Coroutine _shootCoroutine;
-        private Coroutine _checkIfMayShootCoroutine;
+        private float missedAngle;
+        private bool friendlyFireCheck;
+        private float fireRateTimestamp;
 
         private void Start()
         {
             _aiController = gameObject.GetComponent<AIController>();
-            _engineAudioSource = gameObject.GetComponent<AudioSource>();
+            missedAngle = AngleMissed();
         }
 
 
         private void Update()
         {
-            if (_aiController._state == AIState.Attack)
-            {
-                _checkIfMayShootCoroutine = StartCoroutine(CheckIfMayShoot());
-                if (!shooting && mayShoot)
-                {
-                    shooting = true;
-                    _shootCoroutine = StartCoroutine(Shoot());
-                    //TODO: Can shoot twice in a row
-                }
-                else if (!mayShoot)
-                {
-                    shooting = false;
-                    //check if coroutine is running
-                    if (_shootCoroutine == null) return;
-                    StopCoroutine(_shootCoroutine);
-                }
-            }
-            else
-            {
-                shooting = false;
-                StopAllCoroutines();
-            }
+            if (_aiController._state != AIState.Attack) return;
+            if (MayShoot() && !FriendlyFireCheck()) Shoot();
+            //TODO: Can shoot twice in a row
+        }
+
+        private bool MayShoot()
+        {
+            return _turretRotatingObjects[0].transform.rotation == shootRotation;
         }
 
         private void FixedUpdate()
@@ -79,63 +65,50 @@ namespace Ai_s.V_1
                     if (_aiController.visibleTargets.Count == 0) return;
 
                     // Determine which direction to rotate towards
-                    var targetDirection = _aiController.visibleTargets[0].position - turretPart.transform.position;
+                    var direction = (_aiController.visibleTargets[0].position - turretPart.transform.position)
+                        .normalized;
 
+                    var targetRotation = Quaternion.LookRotation(direction);
+                    Debug.Log($"targetRotation: {shootRotation.eulerAngles}");
+                    Debug.Log($"missedAngle: {missedAngle}");
+
+                    shootRotation.eulerAngles = new Vector3(0, targetRotation.eulerAngles.y + missedAngle, 0);
+
+                    Debug.Log($"shootRotation: {shootRotation.eulerAngles}");
 
                     // The step size is equal to speed times frame time.
-                    var singleStep = _aiController.data.turretTurningSpeedInDegree * Time.deltaTime;
+                    var step = _aiController.data.turretTurningSpeedInDegree * Time.deltaTime;
 
-                    //singleStep is in degree make it to radian
-                    singleStep *= Mathf.Deg2Rad;
-
-                    // Rotate the forward vector towards the target direction by one step
-                    var newDirection =
-                        Vector3.RotateTowards(turretPart.transform.forward, targetDirection, singleStep, 0.0f);
-
-
-                    var rotation = Quaternion.LookRotation(newDirection);
-                    rotation = Quaternion.Euler(new Vector3(0, rotation.eulerAngles.y,
-                        0)); // Clamp the x and z rotation
-
-                    turretPart.transform.rotation = rotation;
+                    // Rotate our transform a step closer to the target's.
+                    turretPart.transform.rotation =
+                        Quaternion.RotateTowards(turretPart.transform.rotation, shootRotation, step);
                 }
             }
         }
 
         private float AngleMissed()
         {
-            return MaxAngleMissedShot * (Accuracy / 100) * (UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1);
+            return UnityEngine.Random.Range(0, MaxAngleMissedShot - MaxAngleMissedShot * (Accuracy / 100)) *
+                   (UnityEngine.Random.Range(0, 2) == 0 ? 1 : -1);
         }
 
-
-        private IEnumerator Shoot()
+        private void Shoot()
         {
-            for (;;)
-            {
-                Debug.Log(gameObject.name + " Fired!!");
-                var bulletStartPos = _bulletStartPos.transform;
-                var bullet = Instantiate(projectile, bulletStartPos.position, bulletStartPos.rotation);
-                bullet.name = "Bullet " + ++bulletsShot;
-                bullet.GetComponent<Bullet>().MaxWallBounces = _aiController.data.BulletWallBounces;
-                bullet.GetComponent<Bullet>().Speed = _aiController.data.BulletSpeed;
-                yield return new WaitForSeconds(_aiController.data.FireRate);
-            }
+            if (Time.time < fireRateTimestamp) return;
+            fireRateTimestamp = Time.time + _aiController.data.FireRate;
+            Debug.Log(gameObject.name + " Fired!!");
+            var bulletStartPos = _bulletStartPos.transform;
+            var bullet = Instantiate(projectile, bulletStartPos.position, bulletStartPos.rotation);
+            bullet.name = "Bullet " + ++bulletsShot;
+            bullet.GetComponent<Bullet>().MaxWallBounces = _aiController.data.BulletWallBounces;
+            bullet.GetComponent<Bullet>().Speed = _aiController.data.BulletSpeed;
+            missedAngle = AngleMissed();
         }
 
-        private IEnumerator CheckIfMayShoot()
+        private bool FriendlyFireCheck()
         {
-            for (;;)
-            {
-                RaycastHit hit;
-                // Does the ray intersect any objects excluding the player layer
-                if (Physics.SphereCast(_barrel.position, 0.8f, _bulletStartPos.forward, out hit,
-                        Mathf.Infinity))
-                {
-                    mayShoot = !hit.collider.gameObject.CompareTag("AITank");
-                }
-
-                yield return new WaitForSeconds(0.2f);
-            }
+            return Physics.SphereCast(_barrel.position, 0.8f, _bulletStartPos.forward, out var hit,
+                Mathf.Infinity) && hit.collider.gameObject.CompareTag("AITank");
         }
 
         private void OnDrawGizmos()
