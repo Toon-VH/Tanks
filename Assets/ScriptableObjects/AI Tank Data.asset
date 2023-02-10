@@ -12,9 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea3397ea249476f8298f2336b9f10a4, type: 3}
   m_Name: AI Tank Data
   m_EditorClassIdentifier: 
-  speed: 3.5
-  turningSpeed: 2
-  turretTurningSpeedInDegree: 35
-  BulletSpeed: 32
+  speed: 2.5
+  turningSpeed: 5
+  turretTurningSpeedInDegree: 65
+  Projectile: {fileID: 1971481743149664429, guid: 4cce4b6326329954cb8730799a7329d1,
+    type: 3}
+  FireRate: 0.1
+  BulletSpeed: 30
   BulletWallBounces: 0
-  FireRate: 1.5
+  MinDestinationChangeDelay: 2
+  MaxDestinationChangeDelay: 5
+  AgroRadius: 15
+  ViewRadius: 50
+  ViewAngle: 30
+  TurretRotatingDegree: 40
+  MinSecondsBetweenLookingPos: 1
+  MaxSecondsBetweenLookingPos: 3
+  Accuracy: 50
+  MaxAngleMissedShot: 15

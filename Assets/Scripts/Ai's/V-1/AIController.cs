@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Ai_s.V_1;
+using Attributes;
 using Tank;
 using UnityEngine;
 
@@ -7,9 +9,9 @@ namespace Ai_s
     public class AIController : MonoBehaviour
     {
         [SerializeField] public AITankData data;
-        public AIState _state;
+        [ReadOnlyInspector] public AIState _state;
         private TankExploding _tankExploding;
-        public List<Transform> visibleTargets = new();
+        [HideInInspector] public List<Transform> visibleTargets = new();
 
 
         private void Start()
@@ -27,7 +29,5 @@ namespace Ai_s
         {
             _tankExploding.Explode(bulletPos);
         }
-
-        
     }
 }

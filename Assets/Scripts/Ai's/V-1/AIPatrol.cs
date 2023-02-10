@@ -6,10 +6,8 @@ namespace Ai_s.V_1
 {
     public class AIPatrol : MonoBehaviour
     {
-        [SerializeField] public float _minDestinationChangeDelay = 6f;
-        [SerializeField] public float _maxDestinationChangeDelay = 20f;
-        [HideInInspector] public AIController aiController;
-
+        private AIController _aiController;
+        private AITankData _aiTankData;
         private bool _patrolling;
         private NavMeshAgent _agent;
 
@@ -17,12 +15,13 @@ namespace Ai_s.V_1
         private void Start()
         {
             _agent = gameObject.GetComponent<NavMeshAgent>();
-            aiController = gameObject.GetComponent<AIController>();
+            _aiController = gameObject.GetComponent<AIController>();
+            _aiTankData = _aiController.data;
         }
 
         private void Update()
         {
-            if (aiController._state == AIState.Patrol)
+            if (_aiController._state == AIState.Patrol)
             {
                 _agent.enabled = true;
                 if (_patrolling) return;
@@ -43,10 +42,11 @@ namespace Ai_s.V_1
             for (;;)
             {
                 agent.SetDestination(GetRandomLocation());
-                yield return new WaitForSeconds(Random.Range(_minDestinationChangeDelay, _maxDestinationChangeDelay));
+                yield return new WaitForSeconds(Random.Range(_aiTankData.MinDestinationChangeDelay,
+                    _aiTankData.MaxDestinationChangeDelay));
             }
         }
-        
+
         private Vector3 GetRandomLocation()
         {
             var navMeshData = NavMesh.CalculateTriangulation();

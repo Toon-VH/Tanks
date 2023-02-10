@@ -10,16 +10,6 @@ namespace Ai_s.V_1
     {
         //Turret moving
         [SerializeField] private List<GameObject> _turretRotatingObjects;
-        [Range(0, 360)] [SerializeField] private float _turretRotatingDegree;
-        [SerializeField] private float MinSecondsBetweenLookingPos = 2f;
-        [SerializeField] private float MaxSecondsBetweenLookingPos = 5f;
-        
-        //Agro FOV
-        [SerializeField] public float agroRadius;
-        
-        //Mid FOV
-        [SerializeField] public float viewRadius;
-        [Range(0, 360)] [SerializeField] public float viewAngle;
 
         //Masks
         [SerializeField] private LayerMask targetMask;
@@ -27,34 +17,35 @@ namespace Ai_s.V_1
 
         private AIController _aiController;
         private Quaternion _randomAngle;
-        private Coroutine setRandomLookingPos;
-        private bool lookingAround;
+        private Coroutine _setRandomLookingPos;
+        private bool _lookingAround;
         private Transform _turretMiddleLocation;
+        private AITankData _aiTankData;
 
 
         private void Start()
         {
             _turretMiddleLocation = _turretRotatingObjects[0].transform;
             _aiController = GetComponent<AIController>();
+            _aiTankData = _aiController.data;
             StartCoroutine(FindTargets(0.2f));
-            setRandomLookingPos = StartCoroutine(SetRandomLookingAngle());
-            lookingAround = true;
-            
+            _setRandomLookingPos = StartCoroutine(SetRandomLookingAngle());
+            _lookingAround = true;
         }
 
         private void Update()
         {
             if (_aiController._state == AIState.Patrol)
             {
-                if (lookingAround) return;
-                lookingAround = true;
-                setRandomLookingPos = StartCoroutine(SetRandomLookingAngle());
+                if (_lookingAround) return;
+                _lookingAround = true;
+                _setRandomLookingPos = StartCoroutine(SetRandomLookingAngle());
             }
 
             else
             {
-                lookingAround = false;
-                StopCoroutine(setRandomLookingPos);
+                _lookingAround = false;
+                StopCoroutine(_setRandomLookingPos);
             }
         }
 
@@ -70,15 +61,16 @@ namespace Ai_s.V_1
             {
                 _aiController.visibleTargets.Clear();
                 var targetsInViewRadius =
-                    Physics.OverlapSphere(_turretMiddleLocation.transform.position, viewRadius, targetMask);
+                    Physics.OverlapSphere(_turretMiddleLocation.transform.position, _aiTankData.ViewRadius, targetMask);
                 var targetsInAgroRadius =
-                    Physics.OverlapSphere(transform.position, agroRadius, targetMask);
+                    Physics.OverlapSphere(transform.position, _aiTankData.AgroRadius, targetMask);
 
                 foreach (var t in targetsInViewRadius)
                 {
                     var target = t.transform;
                     var dirToTarget = (target.position - _turretMiddleLocation.transform.position).normalized;
-                    if (!(Vector3.Angle(_turretMiddleLocation.transform.forward, dirToTarget) < viewAngle / 2))
+                    if (!(Vector3.Angle(_turretMiddleLocation.transform.forward, dirToTarget) <
+                          _aiTankData.ViewAngle / 2))
                         continue;
                     var dstToTarget = Vector3.Distance(_turretMiddleLocation.transform.position, target.position);
                     if (!Physics.Raycast(_turretMiddleLocation.transform.position, dirToTarget, dstToTarget,
@@ -123,8 +115,10 @@ namespace Ai_s.V_1
         {
             for (;;)
             {
-                _randomAngle = Quaternion.Euler(0, Random.Range(-_turretRotatingDegree / 2, _turretRotatingDegree / 2), 0);
-                yield return new WaitForSeconds(Random.Range(MinSecondsBetweenLookingPos, MaxSecondsBetweenLookingPos));
+                _randomAngle = Quaternion.Euler(0,
+                    Random.Range(-_aiTankData.TurretRotatingDegree / 2, _aiTankData.TurretRotatingDegree / 2), 0);
+                yield return new WaitForSeconds(Random.Range(_aiTankData.MinSecondsBetweenLookingPos,
+                    _aiTankData.MaxSecondsBetweenLookingPos));
             }
         }
 
@@ -140,25 +134,25 @@ namespace Ai_s.V_1
 
         private void OnDrawGizmos()
         {
-#if UNITY_EDITOR
-            // FOV
+            if (!Application.isPlaying) return;
+            //FOV
             var position = _turretRotatingObjects[0].transform.position;
             Handles.color = Color.cyan;
-            var viewAngleA = DirFromAngle(-viewAngle / 2, false);
-            var viewAngleB = DirFromAngle(viewAngle / 2, false);
-            Handles.DrawLine(position, position + viewAngleA * viewRadius);
-            Handles.DrawLine(position, position + viewAngleB * viewRadius);
+            var viewAngleA = DirFromAngle(-_aiTankData.ViewAngle / 2, false);
+            var viewAngleB = DirFromAngle(_aiTankData.ViewAngle / 2, false);
+            Handles.DrawLine(position, position + viewAngleA * _aiTankData.ViewRadius);
+            Handles.DrawLine(position, position + viewAngleB * _aiTankData.ViewRadius);
             var turretForward = _turretRotatingObjects[0].transform.forward;
-            Handles.DrawWireArc(position, Vector3.up, turretForward, viewAngle / 2, viewRadius);
-            Handles.DrawWireArc(position, Vector3.up, turretForward, -viewAngle / 2, viewRadius);
+            Handles.DrawWireArc(position, Vector3.up, turretForward, _aiTankData.ViewAngle / 2, _aiTankData.ViewRadius);
+            Handles.DrawWireArc(position, Vector3.up, turretForward, -_aiTankData.ViewAngle / 2, _aiTankData.ViewRadius);
             Handles.color = Color.blue;
-            Handles.DrawWireArc(position, Vector3.up, Vector3.forward, 360, agroRadius);
+            Handles.DrawWireArc(position, Vector3.up, Vector3.forward, 360, _aiTankData.AgroRadius);
             //Angle radius
             Handles.color = Color.red;
             var forward = transform.forward;
-            Handles.DrawWireArc(position, Vector3.up, forward, _turretRotatingDegree / 2, 1);
-            Handles.DrawWireArc(position, Vector3.up, forward, -_turretRotatingDegree / 2, 1);
-#endif
+            Handles.DrawWireArc(position, Vector3.up, forward, _aiTankData.TurretRotatingDegree / 2, 1);
+            Handles.DrawWireArc(position, Vector3.up, forward, -_aiTankData.TurretRotatingDegree / 2, 1);
+
         }
     }
 }

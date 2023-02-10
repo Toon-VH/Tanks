@@ -1,29 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Attributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Ai_s.V_1
 {
     public class AIAttack : MonoBehaviour
     {
-        public int bulletsShot = 0;
-
-        // Attack
-        [SerializeField] private GameObject projectile;
+        [ReadOnlyInspector] private int bulletsShot;
         [SerializeField] private Transform _bulletStartPos;
 
         // Turret moving
         [SerializeField] private List<GameObject> _turretRotatingObjects;
-
-        // Accuracy
-        [Range(0, 100)] [SerializeField] private float Accuracy = 50;
-        [SerializeField] private float MaxAngleMissedShot = 30;
-
-        //---
         [SerializeField] private Transform _barrel;
 
         private AIController _aiController;
+        private AITankData _aiTankData;
         private Quaternion shootRotation;
         private bool mayShoot;
         private readonly object _lock = new();
@@ -34,6 +28,7 @@ namespace Ai_s.V_1
         private void Start()
         {
             _aiController = gameObject.GetComponent<AIController>();
+            _aiTankData = _aiController.data;
             missedAngle = AngleMissed();
         }
 
@@ -88,7 +83,7 @@ namespace Ai_s.V_1
 
         private float AngleMissed()
         {
-            return UnityEngine.Random.Range(0, MaxAngleMissedShot - MaxAngleMissedShot * (Accuracy / 100)) *
+            return UnityEngine.Random.Range(0, _aiTankData.MaxAngleMissedShot - _aiTankData.MaxAngleMissedShot * (_aiTankData.Accuracy / 100)) *
                    (UnityEngine.Random.Range(0, 2) == 0 ? 1 : -1);
         }
 
@@ -98,7 +93,7 @@ namespace Ai_s.V_1
             fireRateTimestamp = Time.time + _aiController.data.FireRate;
             Debug.Log(gameObject.name + " Fired!!");
             var bulletStartPos = _bulletStartPos.transform;
-            var bullet = Instantiate(projectile, bulletStartPos.position, bulletStartPos.rotation);
+            var bullet = Instantiate(_aiTankData.Projectile, bulletStartPos.position, bulletStartPos.rotation);
             bullet.name = "Bullet " + ++bulletsShot;
             bullet.GetComponent<Bullet>().MaxWallBounces = _aiController.data.BulletWallBounces;
             bullet.GetComponent<Bullet>().Speed = _aiController.data.BulletSpeed;

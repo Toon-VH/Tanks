@@ -6366,7 +6366,7 @@ PrefabInstance:
     - target: {fileID: 3822129677224297212, guid: 30b31cdb03e46834288ac59d59c26125,
         type: 3}
       propertyPath: m_Name
-      value: Tank - Don Juan
+      value: Player Tank
       objectReference: {fileID: 0}
     - target: {fileID: 4027392248019149529, guid: 30b31cdb03e46834288ac59d59c26125,
         type: 3}
