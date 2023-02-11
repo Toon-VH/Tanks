@@ -23,17 +23,15 @@ namespace Tank
 
             // Move Tank Forward
             var wantedPosition = transform.position + (transform.forward *
-                                                       (_tankController._velocity * _tankController._data.speed *
+                                                       (_tankController._velocity * _tankController._data.speed / 100 *
                                                         Time.deltaTime));
             rb.MovePosition(wantedPosition);
 
             // Rotate Tank
             var wantedRotation = transform.rotation * Quaternion.Euler(Vector3.up *
-                                                                       (_tankController._data
-                                                                            .turningSpeed *
+                                                                       (_tankController._data.turningSpeed *
                                                                         _tankController._rotationalVelocity *
-                                                                        _tankController._data
-                                                                            .turningSpeed *
+                                                                        _tankController._data.turningSpeed *
                                                                         Time.deltaTime));
             rb.MoveRotation(wantedRotation);
         }

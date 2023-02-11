@@ -7,7 +7,7 @@ namespace Tank
     [CreateAssetMenu]
     public class TankData : ScriptableObject
     {
-        [Header("Basics")] public float speed = 2.5f;
+        [Header("Basics")] public float speed = 25f;
         public float turningSpeed = 5;
         public float turretTurningSpeedInDegree = 65;
 

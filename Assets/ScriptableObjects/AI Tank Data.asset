@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea3397ea249476f8298f2336b9f10a4, type: 3}
   m_Name: AI Tank Data
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 25
   turningSpeed: 5
   turretTurningSpeedInDegree: 65
   Projectile: {fileID: 1971481743149664429, guid: 4cce4b6326329954cb8730799a7329d1,
     type: 3}
-  FireRate: 0.1
+  FireRate: 1.5
   BulletSpeed: 30
   BulletWallBounces: 0
   MinDestinationChangeDelay: 2

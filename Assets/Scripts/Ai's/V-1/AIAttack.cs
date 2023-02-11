@@ -83,7 +83,8 @@ namespace Ai_s.V_1
 
         private float AngleMissed()
         {
-            return UnityEngine.Random.Range(0, _aiTankData.MaxAngleMissedShot - _aiTankData.MaxAngleMissedShot * (_aiTankData.Accuracy / 100)) *
+            return UnityEngine.Random.Range(0,
+                       _aiTankData.MaxAngleMissedShot - _aiTankData.MaxAngleMissedShot * (_aiTankData.Accuracy / 100)) *
                    (UnityEngine.Random.Range(0, 2) == 0 ? 1 : -1);
         }
 
@@ -94,7 +95,7 @@ namespace Ai_s.V_1
             Debug.Log(gameObject.name + " Fired!!");
             var bulletStartPos = _bulletStartPos.transform;
             var bullet = Instantiate(_aiTankData.Projectile, bulletStartPos.position, bulletStartPos.rotation);
-            bullet.name = "Bullet " + ++bulletsShot;
+            bullet.name = $"Bullet - {++bulletsShot} | {name}";
             bullet.GetComponent<Bullet>().MaxWallBounces = _aiController.data.BulletWallBounces;
             bullet.GetComponent<Bullet>().Speed = _aiController.data.BulletSpeed;
             missedAngle = AngleMissed();

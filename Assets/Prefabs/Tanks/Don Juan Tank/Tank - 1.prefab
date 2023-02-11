@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 4226229938478795377}
   - component: {fileID: 6586933895739867177}
   - component: {fileID: 2510431852059200795}
+  - component: {fileID: 749705312523226901}
   - component: {fileID: 4818065669208604439}
   - component: {fileID: 1449173320637441944}
   - component: {fileID: 6162797953592304516}
@@ -741,6 +742,21 @@ MonoBehaviour:
   explosionMaxForce: 500
   explosionForceRadius: 10
   fragScaleFactor: 0.05
+--- !u!114 &749705312523226901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822129677224297212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc93c8a8c8e4b0b979e27f9db4d3b00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dustParticles:
+  - {fileID: 44698395691239767}
+  - {fileID: 2851454405321264312}
 --- !u!54 &4818065669208604439
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1457,7 +1473,7 @@ PrefabInstance:
     - target: {fileID: 3133357698384813960, guid: 43a5d5ffceaf0f3468357ac101fbdefb,
         type: 3}
       propertyPath: m_Name
-      value: Track Dust (1)
+      value: Track Dust Right
       objectReference: {fileID: 0}
     - target: {fileID: 3133357698384813960, guid: 43a5d5ffceaf0f3468357ac101fbdefb,
         type: 3}
@@ -1530,6 +1546,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 930427171591410493}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &2851454405321264312 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3133357698384813957, guid: 43a5d5ffceaf0f3468357ac101fbdefb,
+    type: 3}
+  m_PrefabInstance: {fileID: 930427171591410493}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3162970380474422994
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1541,7 +1563,7 @@ PrefabInstance:
     - target: {fileID: 3133357698384813960, guid: 43a5d5ffceaf0f3468357ac101fbdefb,
         type: 3}
       propertyPath: m_Name
-      value: Track Dust
+      value: Track Dust Left
       objectReference: {fileID: 0}
     - target: {fileID: 3133357698384813960, guid: 43a5d5ffceaf0f3468357ac101fbdefb,
         type: 3}
@@ -1608,6 +1630,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43a5d5ffceaf0f3468357ac101fbdefb, type: 3}
+--- !u!198 &44698395691239767 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3133357698384813957, guid: 43a5d5ffceaf0f3468357ac101fbdefb,
+    type: 3}
+  m_PrefabInstance: {fileID: 3162970380474422994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &44698395691239769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3133357698384813963, guid: 43a5d5ffceaf0f3468357ac101fbdefb,

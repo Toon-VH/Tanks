@@ -43,7 +43,7 @@ namespace Tank
             {
                 Fire();
             }
-            
+
             #endregion
         }
 
@@ -51,9 +51,10 @@ namespace Tank
         {
             Debug.Log("Shoot!!");
             nextFire = Time.time + _tankController._data.FireRate;
-            var bullet = Instantiate(projectile, _bulletStartPos.transform.position,
-                _bulletStartPos.transform.rotation);
-            bullet.name = "Bullet " + ++bulletsShot;
+            var transform1 = _bulletStartPos.transform;
+            var bullet = Instantiate(projectile, transform1.position,
+                transform1.rotation);
+            bullet.name = $"Bullet - {++bulletsShot} | {name}";
             bullet.GetComponent<Bullet>().MaxWallBounces = _tankController._data.BulletWallBounces;
             bullet.GetComponent<Bullet>().Speed = _tankController._data.BulletSpeed;
         }
@@ -71,7 +72,7 @@ namespace Tank
 
             // The step size is equal to speed times frame time.
             var singleStep = _tankController._data.turretTurningSpeedInDegree * Time.deltaTime;
-            
+
             //singleStep is in degree make it to radian
             singleStep *= Mathf.Deg2Rad;
 
