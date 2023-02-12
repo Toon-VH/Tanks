@@ -49,7 +49,6 @@ namespace Tank
 
         private void Fire()
         {
-            Debug.Log("Shoot!!");
             nextFire = Time.time + _tankController._data.FireRate;
             var transform1 = _bulletStartPos.transform;
             var bullet = Instantiate(projectile, transform1.position,

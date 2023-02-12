@@ -50,7 +50,6 @@ public class Bullet : MonoBehaviour
 
                 if (counter == 0)
                 {
-                    // Debug.Log($"HitP: {hit.point} - Reflection: {reflectDirection} - Bounces{_bounceCount}");
                     _nextHitPoint = hit.point;
                     _nextBounceDirection = reflectDirection;
                 }
@@ -78,7 +77,7 @@ public class Bullet : MonoBehaviour
             case "Wall":
                 if (_bounceCount >= MaxWallBounces)
                 {
-                    Debug.Log($"Wall - {gameObject.name} collided with {other.transform.name} and gets Destroyed");
+                    Debug.Log($"{gameObject.name} collided with {other.transform.name} and gets Destroyed");
                     Destroy(gameObject);
                 }
                 transform.forward = _nextBounceDirection;
@@ -87,15 +86,15 @@ public class Bullet : MonoBehaviour
             case "Bullet":
                 Destroy(gameObject);
                 Destroy(other.gameObject);
-                Debug.Log($"Bullet - {gameObject.name} collided with {other.transform.name} Destroyed both");
+                Debug.Log($"{gameObject.name} collided with {other.transform.name} Destroyed both");
                 break;
             case "Tank":
-                Debug.Log($"Tank - {gameObject.name} collided with {other.transform.name} Explode Tank");
+                Debug.Log($"{gameObject.name} collided with {other.transform.name} Explode Tank");
                 Destroy(gameObject);
                 other.gameObject.GetComponent<TankController>().HitTank(transform.position);
                 break;
             case "AITank":
-                Debug.Log($"AITank - {gameObject.name} collided with {other.transform.name} Explode Tank");
+                Debug.Log($"{gameObject.name} collided with {other.transform.name} Explode Tank");
                 other.gameObject.GetComponent<AIController>().HitTank(transform.position);
                 Destroy(gameObject);
                 break;

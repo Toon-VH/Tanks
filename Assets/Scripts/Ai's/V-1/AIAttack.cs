@@ -37,12 +37,11 @@ namespace Ai_s.V_1
         {
             if (_aiController._state != AIState.Attack) return;
             if (MayShoot() && !FriendlyFireCheck()) Shoot();
-            //TODO: Can shoot twice in a row
         }
 
         private bool MayShoot()
         {
-            return _turretRotatingObjects[0].transform.rotation == shootRotation;
+            return Quaternion.Angle(_turretRotatingObjects[0].transform.rotation, shootRotation) < 0.1;
         }
 
         private void FixedUpdate()
@@ -64,12 +63,8 @@ namespace Ai_s.V_1
                         .normalized;
 
                     var targetRotation = Quaternion.LookRotation(direction);
-                    Debug.Log($"targetRotation: {shootRotation.eulerAngles}");
-                    Debug.Log($"missedAngle: {missedAngle}");
 
                     shootRotation.eulerAngles = new Vector3(0, targetRotation.eulerAngles.y + missedAngle, 0);
-
-                    Debug.Log($"shootRotation: {shootRotation.eulerAngles}");
 
                     // The step size is equal to speed times frame time.
                     var step = _aiController.data.turretTurningSpeedInDegree * Time.deltaTime;
@@ -92,7 +87,6 @@ namespace Ai_s.V_1
         {
             if (Time.time < fireRateTimestamp) return;
             fireRateTimestamp = Time.time + _aiController.data.FireRate;
-            Debug.Log(gameObject.name + " Fired!!");
             var bulletStartPos = _bulletStartPos.transform;
             var bullet = Instantiate(_aiTankData.Projectile, bulletStartPos.position, bulletStartPos.rotation);
             bullet.name = $"Bullet - {++bulletsShot} | {name}";

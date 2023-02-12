@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 25
   turningSpeed: 5
-  turretTurningSpeedInDegree: 65
+  turretTurningSpeedInDegree: 15
   Projectile: {fileID: 1971481743149664429, guid: 4cce4b6326329954cb8730799a7329d1,
     type: 3}
   FireRate: 1.5
@@ -28,5 +28,5 @@ MonoBehaviour:
   TurretRotatingDegree: 40
   MinSecondsBetweenLookingPos: 1
   MaxSecondsBetweenLookingPos: 3
-  Accuracy: 50
+  Accuracy: 100
   MaxAngleMissedShot: 15
